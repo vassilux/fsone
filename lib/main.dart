@@ -16,15 +16,15 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final UserRepository userRepository = UserRepository();
-  /*runApp(
+  runApp(
     BlocProvider<AuthenticationBloc>(
       create: (context) => AuthenticationBloc(
         userRepository: userRepository,
       )..add(AppStarted()),
       child: App(userRepository: userRepository),
     ),
-  );*/
-  runApp(App(userRepository: userRepository));
+  );
+  
 }
 
 class App extends StatelessWidget {
@@ -35,46 +35,15 @@ class App extends StatelessWidget {
       : assert(userRepository != null),
         _userRepository = userRepository,
         super(key: key);
-
-
         
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<AuthenticationBloc>(
-      create: (BuildContext context) => AuthenticationBloc(
-        userRepository: _userRepository,
-      )..add(AppStarted()),
-      
-      child: MaterialApp(
-        theme: _theme,
-        title: 'S1',
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        
-        builder: (context, state) {
-          BlocProvider.of<AuthenticationBloc>(context);
-          if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: _userRepository);
-          }
-          if (state is AuthenticationAuthenticated) {
-            return HomePage(name: "Test");
-          }
-          if (state is AuthenticationLoading) {
-            return LoadingIndicator();
-          }
-          return SplashPage();
-        },
-      ),
-        
-      ), 
-    );
-
-    /*return MaterialApp(
+  Widget build(BuildContext context) { 
+    return MaterialApp(
       title: 'S1',
       theme: _theme,
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(        
         builder: (context, state) {
-          BlocProvider.of<AuthenticationBloc>(context);
+          
           if (state is AuthenticationUnauthenticated) {
             return LoginPage(userRepository: _userRepository);
           }
@@ -87,6 +56,6 @@ class App extends StatelessWidget {
           return SplashPage();
         },
       ),
-    );*/
+    );
   }
 }
