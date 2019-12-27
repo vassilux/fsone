@@ -17,7 +17,7 @@ class UserNameChanged extends LoginEvent {
   List<Object> get props => [username];
 
   @override
-  String toString() => 'UserNameChanged { email :$username }';
+  String toString() => 'UserNameChanged { username :$username }';
 }
 
 class PasswordChanged extends LoginEvent {

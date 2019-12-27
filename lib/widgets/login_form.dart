@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fsone/blocs/authentication/bloc.dart';
-
 import 'package:fsone/blocs/login/bloc.dart';
 import 'package:fsone/config/assets.dart';
-import 'package:fsone/repositories/user_repository.dart';
 import 'package:fsone/widgets/headers/wavy_header.dart';
 
 import 'login_button.dart';
 
-class LoginForm extends StatefulWidget {
-  final UserRepository _userRepository;
-
-  LoginForm({Key key, @required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
-        super(key: key);
+class LoginForm extends StatefulWidget {   
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -25,7 +16,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  LoginBloc _loginBloc;
+  //LoginBloc _loginBloc;
 
   bool get isPopulated =>
       _usernameController.text.isNotEmpty &&
@@ -36,15 +27,36 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
+  /*void initState() {
+    super.initState();    
     _usernameController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    void _onFormSubmitted() {
+      BlocProvider.of<LoginBloc>(context).add(
+        LoginButtonPressed(
+          username: _usernameController.text,
+          password: _passwordController.text,
+        ),
+      );
+    }
+
+  /*  void _onEmailChanged() {
+    BlocProvider.of<LoginBloc>(context).add(
+      UserNameChanged(username: _usernameController.text),
+    );
+  }
+
+  void _onPasswordChanged() {
+    BlocProvider.of<LoginBloc>(context).add(
+      PasswordChanged(password: _passwordController.text),
+    );
+  }*/
+
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.isFailure) {
@@ -75,10 +87,10 @@ class _LoginFormState extends State<LoginForm> {
               ),
             );
         }
-        if (state.isSuccess) {
+       /* if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context)
               .add(LoggedIn());
-        }
+        }*/
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
@@ -236,26 +248,6 @@ class _LoginFormState extends State<LoginForm> {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  void _onEmailChanged() {
-    _loginBloc.add(
-      UserNameChanged(username: _usernameController.text),
-    );
-  }
-
-  void _onPasswordChanged() {
-    _loginBloc.add(
-      PasswordChanged(password: _passwordController.text),
-    );
-  }
-
-  void _onFormSubmitted() {
-    _loginBloc.add(
-      LoginButtonPressed(
-        username: _usernameController.text,
-        password: _passwordController.text,
-      ),
-    );
-  }
+  }  
+  
 }

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fsone/blocs/authentication/bloc.dart';
 
 class HomePage extends StatelessWidget {
-  final String name;
 
-  HomePage({Key key, @required this.name}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //ignore: close_sinks
-   /* final AuthenticationBloc authenticationBloc =
-        BlocProvider.of<AuthenticationBloc>(context);*/
+  
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -49,9 +48,10 @@ class HomePage extends StatelessWidget {
             icon: Icon(
               Icons.exit_to_app,
             ), onPressed: () {
-             /* BlocProvider.of<AuthenticationBloc>(context).add(
+              
+              BlocProvider.of<AuthenticationBloc>(context).add(
                 LoggedOut(),
-              );*/
+              );
             },
           ),         
         ],
@@ -68,9 +68,10 @@ class HomePage extends StatelessWidget {
             child: RaisedButton(
           child: Text('logout'),
           onPressed: () {
-            /*BlocProvider.of<AuthenticationBloc>(context).add(
+            BlocProvider.of<AuthenticationBloc>(context).add(
                 LoggedOut(),
-              );*/
+              );
+              
           },
         )),
       ),

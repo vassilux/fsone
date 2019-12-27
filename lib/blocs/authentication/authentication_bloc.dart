@@ -42,4 +42,5 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
 
   } // mapEvenToState
+
 }

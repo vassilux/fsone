@@ -18,37 +18,36 @@ void main() {
   final UserRepository userRepository = UserRepository();
   runApp(
     BlocProvider<AuthenticationBloc>(
-      create: (context) => AuthenticationBloc(
+      create: (context) {
+        return AuthenticationBloc(
         userRepository: userRepository,
-      )..add(AppStarted()),
+      )..add(AppStarted());
+      },
       child: App(userRepository: userRepository),
     ),
-  );
-  
+  );  
 }
 
 class App extends StatelessWidget {
-  final UserRepository _userRepository;
+  final UserRepository userRepository;
   final ThemeData _theme = Themes.light;
 
-  App({Key key, @required UserRepository userRepository})
+  App({Key key, @required this.userRepository})
       : assert(userRepository != null),
-        _userRepository = userRepository,
         super(key: key);
-        
+
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'S1',
       theme: _theme,
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(        
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: _userRepository);
+            return LoginPage(userRepository: userRepository);
           }
           if (state is AuthenticationAuthenticated) {
-            return HomePage(name: "Test");
+            return HomePage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
