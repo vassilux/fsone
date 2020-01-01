@@ -15,14 +15,16 @@ class Themes {
       primaryColorBrightness: Brightness.light,
       backgroundColor: Colors.white,
       buttonColor: Palette.accentColor,
-      appBarTheme: AppBarTheme(elevation: 50.0, color: Colors.blue[100], iconTheme: IconThemeData(
-       color: Colors.black12,
-     ),),
-     
+      appBarTheme: AppBarTheme(
+        elevation: 50.0,
+        color: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white),
+        textTheme: TextTheme(title: TextStyle(fontSize: 20.0, color: Colors.white)),
+      ),
       fontFamily: 'Manrope',
       bottomSheetTheme:
           BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)));
-          
+
   static final dark = ThemeData(
       accentColor: Palette.accentColor,
       primaryColor: Colors.black,
@@ -35,9 +37,12 @@ class Themes {
       brightness: Brightness.dark,
       primaryColorBrightness: Brightness.dark,
       buttonColor: Palette.accentColor,
-      appBarTheme: AppBarTheme(elevation: 50.0, iconTheme: IconThemeData(
-       color: Colors.white12,
-     ),),
+      appBarTheme: AppBarTheme(
+        elevation: 50.0,
+        iconTheme: IconThemeData(
+          color: Colors.white12,
+        ),
+      ),
       fontFamily: 'Manrope',
       bottomSheetTheme:
           BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)));
